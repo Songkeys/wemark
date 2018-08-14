@@ -70,11 +70,38 @@ export default {
 
 本项目`mpvue`目录中包含完整的mpvue小程序演示项目，可在`wemark`根目录运行`npm run copy`，然后在微信开发者工具中打开使用。
 
-### taro
+### Taro
 
-由于taro官方还不支持直接引用自定义小程序组件，因此无法直接使用2.0版本，可以参考基于1.x封装的项目<https://github.com/kapeter/taro-wemark>（非官方）。
+Taro 1.0.0 版本开始，已经支持[使用微信小程序的第三方组件](https://nervjs.github.io/taro/wx-third-party.html)。
 
-后续taro更新时，wemark会及时跟进。
+在 `src` 下引入 `wemark` 目录后，在页面或者组件里通过配置 `usingComponents` 指定需要引用的第三方组件即可：
+
+```jsx
+import Taro, { Component } from '@tarojs/taro'
+import { View } from '@tarojs/components'
+
+export default class Comp extends Component {
+	config = {
+		usingComponents: {
+			wemark: '../static/wemark/wemark'
+		}
+	}
+
+    state = {
+		md: '# heading'
+    }
+
+	render() {
+		return (
+			<View>
+				<wemark md={this.state.md} link highlight type="wemark" />
+			</View>
+        )
+	}
+}
+```
+
+> 若当前项目使用的 Taro 版本号低于 1.0，可以参考基于 wemark 1.x 封装的项目：<https://github.com/kapeter/taro-wemark>
 
 ## 附：特性
 
